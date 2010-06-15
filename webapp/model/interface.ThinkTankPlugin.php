@@ -1,5 +1,5 @@
 <?php
 interface ThinkTankPlugin {
-    public function renderConfiguration();
+    public function renderConfiguration($owner, $smarty);
 }
 ?>

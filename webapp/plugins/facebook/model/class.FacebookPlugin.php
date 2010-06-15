@@ -46,13 +46,11 @@ class FacebookPlugin implements CrawlerPlugin, WebappPlugin {
 
     }
 
-    public function renderConfiguration() {
+    public function renderConfiguration($owner, $s) {
         global $db;
-        global $s;
-        global $od;
-        global $id;
-        global $owner;
-        global $oid;
+
+        $id = DAOFactory::getDAO('InstanceDAO');
+        $od = DAOFactory::getDAO('OwnerDAO');
 
         $config = Config::getInstance();
         $status = self::facebook_process_page_actions();

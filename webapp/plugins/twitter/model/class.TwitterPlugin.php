@@ -88,13 +88,12 @@ class TwitterPlugin implements CrawlerPlugin, WebappPlugin {
     }
 
 
-    public function renderConfiguration() {
-        global $s;
-        global $od;
-        global $id;
+    public function renderConfiguration($owner, $s) {
         global $db;
-        global $config;
-        global $owner;
+
+        $id = DAOFactory::getDAO('InstanceDAO');
+        $od = DAOFactory::getDAO('OwnerDAO');
+        $config = Config::getInstance();
 
         $oauth_consumer_key = $config->getValue('oauth_consumer_key');
         $oauth_consumer_secret = $config->getValue('oauth_consumer_secret');
@@ -335,10 +334,10 @@ class TwitterPlugin implements CrawlerPlugin, WebappPlugin {
 
         //Links from favorites
         /* $lftab = new WebappTab("links-favorites", 'Links From Favorites', 'Links in posts you favorited');
-        $lftabds = new WebappTabDataset("links", $ld, "getLinksByFriends", array($instance->network_user_id));
-        $lftab->addDataset($lftabds);
-        array_push($child_tabs, $lftab);
-        */
+         $lftabds = new WebappTabDataset("links", $ld, "getLinksByFriends", array($instance->network_user_id));
+         $lftab->addDataset($lftabds);
+         array_push($child_tabs, $lftab);
+         */
         //Photos
         $ptab = new WebappTab("links-photos", "Photos", 'Photos your friends have posted', $twitter_data_tpl);
         $ptabds = new WebappTabDataset("links", $ld, "getPhotosByFriends", array($instance->network_user_id));
