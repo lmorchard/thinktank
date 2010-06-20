@@ -96,8 +96,8 @@ class PrivateDashboardController extends ThinkTankAuthController {
             //$total_friends_with_errors = $follow_dao->countTotalFriendsWithErrors($instance->network_user_id);
             //$this->addToView('total_friends_with_errors', $total_friends_with_errors);
 
-            $total_friends_protected = $follow_dao->countTotalFriendsProtected($instance->network_user_id);
-            $this->addToView('total_friends_protected', $total_friends_protected);
+            //$total_friends_protected = $follow_dao->countTotalFriendsProtected($instance->network_user_id);
+            //$this->addToView('total_friends_protected', $total_friends_protected);
 
             //Percentages
             if (isset($owner_stats)) {
@@ -119,9 +119,9 @@ class PrivateDashboardController extends ThinkTankAuthController {
                 //$total_follows_with_errors), 2);
                 //$this->addToView('percent_followers_suspended', $percent_followers_suspended);
 
-                $percent_followers_protected = round(Utils::getPercentage($total_follows_with_full_details, 
-                $total_follows_protected), 2);
-                $this->addToView('percent_followers_protected', $percent_followers_protected);
+                //$percent_followers_protected = round(Utils::getPercentage($total_follows_with_full_details, 
+                //$total_follows_protected), 2);
+                //$this->addToView('percent_followers_protected', $percent_followers_protected);
             }
             $webapp->setActivePlugin($instance->network);
             $this->addToView('post_tabs', $webapp->getChildTabsUnderPosts($instance));
