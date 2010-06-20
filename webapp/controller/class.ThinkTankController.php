@@ -30,7 +30,16 @@ abstract class ThinkTankController {
      * @var string cache key separator
      */
     const KEY_SEPARATOR='-';
-
+    /**
+     *
+     * @var bool
+     */
+    private $profiler_enabled = false;
+    /**
+     *
+     * @var float
+     */
+    private $start_time = 0;
     /**
      * Constructs ThinkTankController
      *
@@ -43,6 +52,10 @@ abstract class ThinkTankController {
         }
         $config = Config::getInstance();
         $this->is_view_cached = $config->getValue('cache_pages');
+        $this->profiler_enabled = $config->getValue('enable_profiler');
+        if ( $this->profiler_enabled) {
+            $this->start_time = microtime(true);
+        }
         $this->view_mgr = new SmartyThinkTank();
         if ($this->isLoggedIn()) {
             $this->addToView('logged_in_user', $this->getLoggedInUser());
@@ -136,7 +149,17 @@ abstract class ThinkTankController {
      */
     public function go() {
         try {
-            return $this->control();
+            if ($this->profiler_enabled) {
+                $results = $this->control();
+                $end_time = microtime(true);
+                $total_time = $end_time - $this->start_time;
+                $profiler = Profiler::getInstance();
+                $profiler->add($total_time, "Total page execution time running ".$profiler->total_queries. " queries.");
+                return $results.'<pre>'.(implode($profiler->getProfile(), '<br />')).'</pre>';
+            } else  {
+                return $this->control();
+            }
+
         } catch (Exception $e) {
             return $e->getMessage();
         }
