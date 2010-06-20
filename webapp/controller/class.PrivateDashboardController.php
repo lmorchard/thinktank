@@ -93,8 +93,8 @@ class PrivateDashboardController extends ThinkTankAuthController {
             //$total_friends_loaded = $follow_dao->countTotalFriends($instance->network_user_id);
             //$this->addToView('total_friends', $total_friends_loaded);
 
-            $total_friends_with_errors = $follow_dao->countTotalFriendsWithErrors($instance->network_user_id);
-            $this->addToView('total_friends_with_errors', $total_friends_with_errors);
+            //$total_friends_with_errors = $follow_dao->countTotalFriendsWithErrors($instance->network_user_id);
+            //$this->addToView('total_friends_with_errors', $total_friends_with_errors);
 
             $total_friends_protected = $follow_dao->countTotalFriendsProtected($instance->network_user_id);
             $this->addToView('total_friends_protected', $total_friends_protected);
