@@ -77,8 +77,9 @@ class PrivateDashboardController extends ThinkTankAuthController {
             $this->addToView('instance', $instance);
             $this->addToView('instances', $instancenstance_dao->getByOwner($owner));
 
-            $total_follows_with_errors = $follow_dao->countTotalFollowsWithErrors($instance->network_user_id);
-            $this->addToView('total_follows_with_errors', $total_follows_with_errors);
+            //costly query
+            //$total_follows_with_errors = $follow_dao->countTotalFollowsWithErrors($instance->network_user_id);
+            //$this->addToView('total_follows_with_errors', $total_follows_with_errors);
 
             $total_follows_with_full_details = 
             $follow_dao->countTotalFollowsWithFullDetails($instance->network_user_id);
@@ -88,8 +89,9 @@ class PrivateDashboardController extends ThinkTankAuthController {
             $this->addToView('total_follows_protected', $total_follows_protected);
 
             //TODO: Get friends with full details and also friends with errors, same as with followers
-            $total_friends_loaded = $follow_dao->countTotalFriends($instance->network_user_id);
-            $this->addToView('total_friends', $total_friends_loaded);
+            //costly query
+            //$total_friends_loaded = $follow_dao->countTotalFriends($instance->network_user_id);
+            //$this->addToView('total_friends', $total_friends_loaded);
 
             $total_friends_with_errors = $follow_dao->countTotalFriendsWithErrors($instance->network_user_id);
             $this->addToView('total_friends_with_errors', $total_friends_with_errors);
@@ -99,23 +101,23 @@ class PrivateDashboardController extends ThinkTankAuthController {
 
             //Percentages
             if (isset($owner_stats)) {
-                $percent_followers_loaded = Utils::getPercentage($owner_stats->follower_count, 
-                ($total_follows_with_full_details + $total_follows_with_errors));
-                $percent_followers_loaded = ($percent_followers_loaded  > 100) ? 100 : $percent_followers_loaded;
-                $this->addToView('percent_followers_loaded', $percent_followers_loaded);
+                //$percent_followers_loaded = Utils::getPercentage($owner_stats->follower_count, 
+                //($total_follows_with_full_details + $total_follows_with_errors));
+                //$percent_followers_loaded = ($percent_followers_loaded  > 100) ? 100 : $percent_followers_loaded;
+                //$this->addToView('percent_followers_loaded', $percent_followers_loaded);
 
                 $percent_tweets_loaded = Utils::getPercentage($owner_stats->post_count,
                 $instance->total_posts_in_system );
                 $percent_tweets_loaded = ($percent_tweets_loaded  > 100) ? 100 : $percent_tweets_loaded;
                 $this->addToView('percent_tweets_loaded', $percent_tweets_loaded);
 
-                $percent_friends_loaded = Utils::getPercentage($owner_stats->friend_count, ($total_friends_loaded));
-                $percent_friends_loaded = ($percent_friends_loaded  > 100) ? 100 : $percent_friends_loaded;
-                $this->addToView('percent_friends_loaded', $percent_friends_loaded);
+                //$percent_friends_loaded = Utils::getPercentage($owner_stats->friend_count, ($total_friends_loaded));
+                //$percent_friends_loaded = ($percent_friends_loaded  > 100) ? 100 : $percent_friends_loaded;
+                //$this->addToView('percent_friends_loaded', $percent_friends_loaded);
 
-                $percent_followers_suspended = round(Utils::getPercentage($total_follows_with_full_details,
-                $total_follows_with_errors), 2);
-                $this->addToView('percent_followers_suspended', $percent_followers_suspended);
+                //$percent_followers_suspended = round(Utils::getPercentage($total_follows_with_full_details,
+                //$total_follows_with_errors), 2);
+                //$this->addToView('percent_followers_suspended', $percent_followers_suspended);
 
                 $percent_followers_protected = round(Utils::getPercentage($total_follows_with_full_details, 
                 $total_follows_protected), 2);
